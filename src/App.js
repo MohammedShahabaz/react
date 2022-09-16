@@ -35,15 +35,11 @@ function App() {
         <Router>
           <PrimarySearchAppBar />
           <Switch>
-            <Route exact path="/">
+            <Route exact path="/home">
               <Home />
             </Route>
             <Route exact path="/addnewreport">
-              <div className="row">
-                <div className="col-lg-8 m-5">
-                  <NewESGReport />
-                </div>
-              </div>
+              <NewESGReport />
             </Route>
           </Switch>
         </Router>
