@@ -14,20 +14,11 @@ import {
   Route,
   useHistory,
 } from "react-router-dom";
+import ViewReport from "./Components/ViewReport";
 
 function App() {
   const [state, setState] = useState("");
   const history = useHistory();
-
-  // const fetchAllDetails = async () => {
-  //   const response = await fetch(`http://localhost:9000/testAPI`);
-  //   const data = await response.text();
-  //   setState(data);
-  //   console.log(data);
-  // };
-  // useEffect(() => {
-  //   fetchAllDetails();
-  // }, []);
 
   return (
     <div className="App">
@@ -37,6 +28,9 @@ function App() {
           <Switch>
             <Route exact path="/home">
               <Home />
+            </Route>
+            <Route exact path="/ViewReport">
+              <ViewReport />
             </Route>
             <Route exact path="/addnewreport">
               <NewESGReport />

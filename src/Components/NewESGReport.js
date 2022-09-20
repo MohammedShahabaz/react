@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import Fade from "@mui/material/Fade";
 import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
+import SearchIcon from "@mui/icons-material/Search";
 
 const NewESGReport = () => {
   const [open, setOpen] = React.useState(false);
@@ -35,7 +36,7 @@ const NewESGReport = () => {
       style={{
         maxWidth: 550,
         margin: "30px auto",
-        padding: "10px 5px 50px 5px",
+        padding: "5px 3px 50px 3px",
       }}
     >
       <CardContent>
@@ -50,15 +51,15 @@ const NewESGReport = () => {
         </Typography>
         <br />
         <div className="row">
-          <div className="col offset-1 ">
+          <div className="col offset-2 ">
             <form>
               <TextField id="standard-basic" label="CIK" variant="standard" />
 
-              <Button size="small" variant="contained">
+              {/* <Button size="small" variant="contained">
                 search
-              </Button>
+              </Button> */}
 
-              {/* <IconButton
+              <IconButton
                 // type="submit"
                 color="primary"
                 aria-label="search"
@@ -66,13 +67,13 @@ const NewESGReport = () => {
                 variant="filled"
               >
                 <SearchIcon fontSize="large" />
-              </IconButton> */}
+              </IconButton>
             </form>
           </div>
         </div>
         <br />
         <div className="row">
-          <div className="col-lg-7 offset-1">
+          <div className="col-lg-7 offset-2">
             <Autocomplete
               {...defaultProps}
               id="clear-on-escape"
@@ -88,24 +89,23 @@ const NewESGReport = () => {
           </div>
         </div>
         <br />
-        <div className="row">
-          <div className="col-lg-6 offset-1">
-            <TextField
-              id="outlined-basic"
-              label="Address 1"
-              variant="outlined"
-            />
-          </div>
-        </div>
         <br />
         <div className="row">
-          <span> &emsp;</span>
-          <div className="col-xs-6 offset-1">
+          {/* <span> &emsp;</span> */}
+          <div className="col-lg-7 offset-2">
             <TextField
-              id="outlined-basic"
-              label="Address 2"
-              variant="outlined"
+              id="outlined-multiline-static"
+              label="Address"
+              multiline
+              fullWidth
+              rows={3}
+              // defaultValue="Default Value"
+              //value={value}
+              // onChange={handleChange}
+              disabled
             />
+          </div>
+          <div className="col-lg-2">
             <IconButton
               onClick={handleClick("right-start")}
               color="primary"
@@ -114,7 +114,6 @@ const NewESGReport = () => {
             >
               <AddCircleOutlineIcon fontSize="large" />
             </IconButton>
-
             <Popper
               open={open}
               anchorEl={anchorEl}
@@ -124,7 +123,7 @@ const NewESGReport = () => {
               {({ TransitionProps }) => (
                 <Fade {...TransitionProps} timeout={200}>
                   <Paper>
-                    <div className="container p-3">
+                    <div className="container p-3" style={{ width: "275px" }}>
                       <form>
                         <Typography
                           variant="h5"
@@ -135,21 +134,52 @@ const NewESGReport = () => {
                         </Typography>
 
                         <div className="row mt-2">
-                          <div className="col ">
-                            <TextField
-                              id="outlined-basic"
-                              label="Address "
-                              variant="outlined"
+                          <div className="col-12 ">
+                            <Autocomplete
+                              {...defaultProps}
+                              id="clear-on-escape"
+                              clearOnEscape
+                              fullWidth
+                              renderInput={(params) => (
+                                <TextField
+                                  {...params}
+                                  label="Country"
+                                  variant="outlined"
+                                />
+                              )}
                             />
                           </div>
                         </div>
 
                         <div className="row mt-2">
                           <div className="col ">
-                            <TextField
-                              id="outlined-basic"
-                              label="Address "
-                              variant="outlined"
+                            <Autocomplete
+                              {...defaultProps}
+                              id="clear-on-escape"
+                              clearOnEscape
+                              renderInput={(params) => (
+                                <TextField
+                                  {...params}
+                                  label="State"
+                                  variant="outlined"
+                                />
+                              )}
+                            />
+                          </div>
+                        </div>
+                        <div className="row mt-2">
+                          <div className="col ">
+                            <Autocomplete
+                              {...defaultProps}
+                              id="clear-on-escape"
+                              clearOnEscape
+                              renderInput={(params) => (
+                                <TextField
+                                  {...params}
+                                  label="City"
+                                  variant="outlined"
+                                />
+                              )}
                             />
                           </div>
                         </div>
@@ -164,6 +194,7 @@ const NewESGReport = () => {
                             </Button>
                           </div>
                           <div className="col">
+                            <span> &emsp;</span>{" "}
                             <Button size="small" variant="contained">
                               add
                             </Button>

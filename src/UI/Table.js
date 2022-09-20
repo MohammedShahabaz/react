@@ -8,6 +8,8 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { Button } from "@mui/material";
+import { useHistory } from "react-router-dom";
+
 const columns = [
   { id: "ESGReport", label: "ESG Report", minWidth: 170 },
   { id: "date", label: "Date", minWidth: 100, align: "center" },
@@ -65,6 +67,7 @@ const rows = [
 export default function StickyHeadTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const history = useHistory();
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -121,7 +124,11 @@ export default function StickyHeadTable() {
                       );
                     })}
                     <TableCell align="center">
-                      <Button size="small" variant="contained">
+                      <Button
+                        size="small"
+                        onClick={() => history.push("/ViewReport")}
+                        variant="contained"
+                      >
                         Open
                       </Button>
                       <span> &emsp;</span>
