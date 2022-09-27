@@ -15,6 +15,7 @@ import {
   useHistory,
 } from "react-router-dom";
 import ViewReport from "./Components/ViewReport";
+import Form1 from "./Forms/Form1";
 
 function App() {
   const [state, setState] = useState("");

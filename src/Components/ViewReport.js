@@ -5,204 +5,130 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import TreeView from "@mui/lab/TreeView";
 import TreeItem from "@mui/lab/TreeItem";
 import { Stack } from "@mui/system";
-import {
-  Button,
-  Checkbox,
-  Divider,
-  Fade,
-  FormControl,
-  IconButton,
-  InputLabel,
-  MenuItem,
-  Paper,
-  Popper,
-  Select,
-  Typography,
-} from "@mui/material";
+import { Button, Divider, Grid } from "@mui/material";
 import { useState, useEffect } from "react";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
-import SearchIcon from "@mui/icons-material/Search";
-
-const top100Films = [
-  { label: "The Shawshank Redemption", year: 1994 },
-  { label: "The Godfather", year: 1972 },
-  { label: "The Godfather: Part II", year: 1974 },
-  { label: "The Dark Knight", year: 2008 },
-  { label: "12 Angry Men", year: 1957 },
-  { label: "Schindler's List", year: 1993 },
-  { label: "Pulp Fiction", year: 1994 },
-];
-
+import OrganizationDetails from "../Forms/OrganizationDetails";
+import Form1 from "../Forms/Form1";
+import Form2 from "../Forms/Form2";
+import Form3 from "../Forms/Form3";
+import Form4 from "../Forms/Form4";
+import axios from "axios";
 const ViewReport = () => {
   const [state, setState] = useState("");
   const [form, setform] = useState("");
-  const [open, setOpen] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [placement, setPlacement] = React.useState();
+  const [expanded, setExpanded] = useState([]);
+  const [selected, setSelected] = useState("Disclosure");
+  let arr = [];
+  let exparr = [];
 
-  const popover = (newPlacement) => (event) => {
-    console.log("popover");
-    setAnchorEl(event.currentTarget);
-    setOpen((prev) => placement !== newPlacement || !prev);
-    setPlacement(newPlacement);
+  const handleToggle = (event, nodeIds) => {
+    //console.log("toggle", exparr, expanded);
+    setExpanded(nodeIds);
   };
-
+  const handleSelect = (event, nodeIds) => {
+    //console.log(nodeIds);
+    setSelected(nodeIds);
+  };
+  const Toggle = (type) => {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] === selected) {
+        if (type === "next" && i !== arr.length - 1) {
+          setSelected(() => arr[i + 1]);
+          selectHandler(arr[i + 1]);
+          return;
+        } else if (type === "prev" && i !== 0) {
+          setSelected(() => arr[i - 1]);
+          selectHandler(arr[i - 1]);
+          return;
+        }
+      }
+    }
+  };
   const fetchtree = async () => {
     const response = await fetch(`http://localhost:3000/tree/basetree`);
     const data = await response.json();
     setState(data.basetree._items[0]);
+    //console.log(data.basetree._items[0]);
   };
+
   useEffect(() => {
     fetchtree();
   }, []);
 
-  const selectHandler = (key) => {
-    console.log(key);
-    setform("");
-    if (key === "Organization Details") {
-      const data = (
-        <>
-          <br />
-          <div className="row">
-            <div className="col-lg-4 offset-1">
-              {/* <form> */}
-              <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                options={top100Films}
-                sx={{ width: 300 }}
-                size="small"
-                renderInput={(params) => (
-                  <TextField {...params} label="Organization" />
-                )}
-              />
-
-              {/* </form> */}
-            </div>
-            <div className="col-lg-1 offset-1">
-              <IconButton
-                // type="submit"
-                color="primary"
-                aria-label="search"
-                size="large"
-                variant="filled"
-              >
-                <SearchIcon fontSize="large" />
-              </IconButton>
-            </div>
-            <div className="col-lg-1 offset-1">
-              <Button variant="contained">Assign</Button>
-              <Popper
-                open={open}
-                anchorEl={anchorEl}
-                placement={"right"}
-                transition
-              >
-                {({ TransitionProps }) => (
-                  <Fade {...TransitionProps} timeout={200}>
-                    <Paper>
-                      <div className="container p-3" style={{ width: "275px" }}>
-                        <form>
-                          <Typography variant="h5" align="center">
-                            Assign To
-                          </Typography>
-
-                          <div className="row mt-2">
-                            <div className="col-12 ">
-                              <Autocomplete
-                                // {...defaultProps}
-                                id="clear-on-escape"
-                                clearOnEscape
-                                fullWidth
-                                renderInput={(params) => (
-                                  <TextField
-                                    {...params}
-                                    label="email"
-                                    variant="outlined"
-                                  />
-                                )}
-                              />
-                            </div>
-                          </div>
-
-                          <div className="row mt-2">
-                            <div className="col"></div>
-                            <div className="col">
-                              <span> &emsp;</span>{" "}
-                              <Button size="small" variant="contained">
-                                assign
-                              </Button>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                    </Paper>
-                  </Fade>
-                )}
-              </Popper>
-            </div>
-          </div>
-          <br />
-          <div className="row">
-            <div className="col offset-1">
-              <FormControl sx={{ m: 1, minWidth: 220 }} size="small">
-                <InputLabel id="demo-select-small">location</InputLabel>
-                <Select
-                  labelId="demo-select-small"
-                  id="demo-select-small"
-                  // value={age}
-                  label="Age"
-                  // onChange={handleChange}
-                >
-                  <MenuItem value={10}>10</MenuItem>
-                  <MenuItem value={20}>20</MenuItem>
-                </Select>
-              </FormControl>
-              <Checkbox />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col offset-1">
-              <FormControl sx={{ m: 1, minWidth: 220 }} size="small">
-                <InputLabel id="demo-select-small">location</InputLabel>
-                <Select
-                  labelId="demo-select-small"
-                  id="demo-select-small"
-                  // value={age}
-                  label="Age"
-                  // onChange={handleChange}
-                >
-                  <MenuItem value={10}>10</MenuItem>
-                  <MenuItem value={20}>20</MenuItem>
-                </Select>
-              </FormControl>
-              <Checkbox />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col offset-1">
-              <FormControl sx={{ m: 1, minWidth: 220 }} size="small">
-                <InputLabel id="demo-select-small">location</InputLabel>
-                <Select
-                  labelId="demo-select-small"
-                  id="demo-select-small"
-                  // value={age}
-                  label="Age"
-                  // onChange={handleChange}
-                >
-                  <MenuItem value={10}>10</MenuItem>
-                  <MenuItem value={20}>20</MenuItem>
-                </Select>
-              </FormControl>
-              <Checkbox />
-            </div>
-          </div>
-        </>
-      );
-      setform(data);
-    }
+  const UpdateHandler = async (obj) => {
+    const response = await axios.put(`http://localhost:3000/tree/question`, {
+      params: {
+        Key: "Organization",
+        label: "organization",
+        cik: "0001467373",
+        body: { business_name: obj.business_name, legal_name: obj.legal_name },
+      },
+    });
+    console.log(response);
   };
+
+  const selectHandler = async (key) => {
+    const response = await axios.get(`http://localhost:3000/tree/question`, {
+      params: {
+        Key: key,
+        label: "question",
+        cik: "0001467373",
+      },
+    });
+    // .then(function (response) {
+    //   console.log(response.data);
+    //   console.log(response.data.formProperties._items[0].business_name[0]);
+    //   console.log(response.data.vertex._items[0]);
+    // });
+    const data = await response.data;
+    console.log(data);
+
+    // console.log("selecthandler");
+    // const obj = {
+    //   Key: Key,
+    //   label: "question",
+    //   cik: "00333",
+    // };
+    // const response = await fetch(
+    //   `http://localhost:3000/tree/question/${key}`
+    //   // method: "GET",
+    //   // body: JSON.stringify(obj),
+    //   // headers: {
+    //   //   "content-type": "application/json",
+    //   // },
+    // );
+    // let data;
+    // if (response.ok) {
+    //   data = await response.json();
+    //   console.log(data);
+    // }
+    setform("");
+    // data={data.vertex._items[0]}
+    let Form;
+    if (key === "Organization") {
+      Form = <OrganizationDetails data={data.vertex._items[0]} />;
+    } else if (key === "GRI-2.1.a.2") {
+      Form = (
+        <Form1
+          data={data.formProperties._items[0]}
+          UpdateHandler={UpdateHandler}
+          qkey={key}
+        />
+      );
+    } else if (key === "2.1 b") {
+      Form = <Form2 data={data.vertex._items[0]} />;
+    } else if (key === "Location") {
+      Form = (
+        <Form3 data={data.vertex._items[0]} UpdateHandler={UpdateHandler} />
+      );
+    } else if (key === "Country") {
+      Form = (
+        <Form4 data={data.vertex._items[0]} UpdateHandler={UpdateHandler} />
+      );
+    }
+    setform(Form);
+  };
+  //arr.push(item[1].key);  //setExpanded((oldArray) => [...oldArray, item[1].key]);
 
   const render = (state) =>
     Object.entries(state).map((item) => (
@@ -213,9 +139,23 @@ const ViewReport = () => {
         value={item[1].value}
         onClick={() => selectHandler(item[1].key)}
       >
-        {item[1].value ? render(item[1].value) : null}
+        {Object.keys(item[1].value).length !== 0 ? render(item[1].value) : null}
       </TreeItem>
     ));
+
+  const getkeys = (state) => {
+    Object.entries(state).map((item) => {
+      arr.push(item[1].key);
+      if (Object.keys(item[1].value).length !== 0) {
+        exparr.push(item[1].key);
+        getkeys(item[1].value);
+      }
+    });
+  };
+
+  getkeys(state);
+
+  //console.log(arr, exparr);
 
   return (
     <Box container>
@@ -225,10 +165,14 @@ const ViewReport = () => {
           <TreeView
             aria-label="rich object"
             defaultCollapseIcon={<ExpandMoreIcon />}
-            defaultExpanded={["root"]}
             defaultExpandIcon={<ChevronRightIcon />}
+            expanded={expanded}
+            //defaultExpanded={exparr}
+            selected={selected}
+            onNodeToggle={handleToggle}
+            onNodeSelect={handleSelect}
             sx={{
-              height: 310,
+              height: 510,
               flexGrow: 1,
               maxWidth: 400,
               overflowY: "auto",
@@ -238,7 +182,31 @@ const ViewReport = () => {
           </TreeView>
         </Box>
         <Divider orientation="vertical" flexItem />
-        <Box flex={6}>{form}</Box>
+        <Box flex={6}>
+          <Box mt={5} height="500px">
+            {form}
+          </Box>
+          <Grid container spacing={5} justifyContent="space-around">
+            <Button
+              variant="contained"
+              onClick={() => {
+                Toggle("prev");
+              }}
+              size="small"
+            >
+              prev
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() => {
+                Toggle("next");
+              }}
+              size="small"
+            >
+              next
+            </Button>
+          </Grid>
+        </Box>
         <Divider orientation="vertical" flexItem />
         <Box flex={3}></Box>
       </Stack>

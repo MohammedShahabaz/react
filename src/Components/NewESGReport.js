@@ -54,11 +54,6 @@ const NewESGReport = () => {
           <div className="col offset-2 ">
             <form>
               <TextField id="standard-basic" label="CIK" variant="standard" />
-
-              {/* <Button size="small" variant="contained">
-                search
-              </Button> */}
-
               <IconButton
                 // type="submit"
                 color="primary"
