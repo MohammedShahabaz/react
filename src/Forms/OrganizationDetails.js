@@ -156,7 +156,7 @@ const OrganizationDetails = (props) => {
             id="outlined-basic"
             label="Business Name"
             variant="outlined"
-            //defaultValue={data.business_name[0]}
+            defaultValue={data.business_name[0]}
             size="small"
           />
         </Grid>
@@ -165,12 +165,12 @@ const OrganizationDetails = (props) => {
             id="outlined-basic"
             label="Legal Name"
             variant="outlined"
-            //defaultValue={data.legal_name[0]}
+            defaultValue={data.legal_name[0]}
             size="small"
           />
         </Grid>
 
-        <Grid item md={4}>
+        {/* <Grid item md={4}>
           <TextField
             id="outlined-basic"
             label="Nature of Ownership"
@@ -178,7 +178,7 @@ const OrganizationDetails = (props) => {
             //defaultValue={data.nature_of_ownership[0]}
             size="small"
           />
-        </Grid>
+        </Grid> */}
       </Grid>
       <Grid container direction="row" ml={5} item>
         {/* <FormControl sx={{ m: 1, minWidth: 220 }} size="small">

@@ -39,7 +39,7 @@ const Form3 = (props) => {
             label="Address"
             variant="outlined"
             size="small"
-            // defaultValue={data.addtess[0]}
+            defaultValue={data.addtess[0]}
             inputRef={addtess}
           />
         </Grid>
@@ -49,7 +49,7 @@ const Form3 = (props) => {
             label="City"
             variant="outlined"
             size="small"
-            //defaultValue={data.city[0]}
+            defaultValue={data.city[0]}
             inputRef={city}
           />
         </Grid>
@@ -59,7 +59,7 @@ const Form3 = (props) => {
             label="State of Jurisdiction"
             variant="outlined"
             size="small"
-            // defaultValue={data.state_of_jurisdiction[0]}
+            defaultValue={data.state_of_jurisdiction[0]}
             inputRef={state_of_jurisdiction}
           />
         </Grid>
@@ -79,7 +79,7 @@ const Form3 = (props) => {
             label="zip"
             variant="outlined"
             size="small"
-            // defaultValue={data.zip[0]}
+            defaultValue={data.zip[0]}
             inputRef={zip}
           />
         </Grid>

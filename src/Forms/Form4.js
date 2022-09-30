@@ -38,7 +38,7 @@ const Form4 = (props) => {
             id="outlined-basic"
             label="Country"
             variant="outlined"
-            //defaultValue={data.country_name[0]}
+            defaultValue={data.country_name[0]}
             inputRef={country_name}
           />
         </Grid>
@@ -48,7 +48,7 @@ const Form4 = (props) => {
             id="outlined-basic"
             label="Numeric Code"
             variant="outlined"
-            //defaultValue={data.numeric_code[0]}
+            defaultValue={data.numeric_code[0]}
             inputRef={numeric_code}
           />
         </Grid>
@@ -58,7 +58,7 @@ const Form4 = (props) => {
             id="outlined-basic"
             label="Alpha 2 Code"
             variant="outlined"
-            //defaultValue={data.alpha_2_code[0]}
+            defaultValue={data.alpha_2_code[0]}
             inputRef={alpha_2_code}
           />
         </Grid>
@@ -68,7 +68,7 @@ const Form4 = (props) => {
             id="outlined-basic"
             label="Alpha 3 Code"
             variant="outlined"
-            //defaultValue={data.alpha_3_code[0]}
+            defaultValue={data.alpha_3_code[0]}
             inputRef={alpha_3_code}
           />
         </Grid>

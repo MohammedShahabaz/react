@@ -13,6 +13,9 @@ import Form2 from "../Forms/Form2";
 import Form3 from "../Forms/Form3";
 import Form4 from "../Forms/Form4";
 import axios from "axios";
+import * as xlsx from "xlsx";
+import excelFile from "../questions.xlsx"; //get file location url from react src folder
+
 const ViewReport = () => {
   const [state, setState] = useState("");
   const [form, setform] = useState("");
@@ -26,7 +29,6 @@ const ViewReport = () => {
     setExpanded(nodeIds);
   };
   const handleSelect = (event, nodeIds) => {
-    //console.log(nodeIds);
     setSelected(nodeIds);
   };
   const Toggle = (type) => {
@@ -48,17 +50,37 @@ const ViewReport = () => {
     const response = await fetch(`http://localhost:3000/tree/basetree`);
     const data = await response.json();
     setState(data.basetree._items[0]);
-    //console.log(data.basetree._items[0]);
   };
 
   useEffect(() => {
     fetchtree();
   }, []);
 
+  // get file from the imported url
+  var request = new XMLHttpRequest();
+  request.open("GET", excelFile, true);
+  request.responseType = "arraybuffer";
+  request.onload = function () {
+    /* convert data to binary string */
+    var data = new Uint8Array(request.response);
+    var arr = new Array();
+    for (var i = 0; i != data.length; ++i)
+      arr[i] = String.fromCharCode(data[i]);
+    data = arr.join("");
+
+    //using xlsx library convert file to json
+    const workbook = xlsx.read(data, { type: "binary" });
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
+    const json = xlsx.utils.sheet_to_json(worksheet);
+    console.log(json);
+  };
+  request.send();
+
   const UpdateHandler = async (obj) => {
     const response = await axios.put(`http://localhost:3000/tree/question`, {
       params: {
-        Key: "Organization",
+        key: "Organization",
         label: "organization",
         cik: "0001467373",
         body: { business_name: obj.business_name, legal_name: obj.legal_name },
@@ -68,67 +90,35 @@ const ViewReport = () => {
   };
 
   const selectHandler = async (key) => {
+    setform("");
     const response = await axios.get(`http://localhost:3000/tree/question`, {
       params: {
-        Key: key,
+        key: key,
         label: "question",
         cik: "0001467373",
       },
     });
-    // .then(function (response) {
-    //   console.log(response.data);
-    //   console.log(response.data.formProperties._items[0].business_name[0]);
-    //   console.log(response.data.vertex._items[0]);
-    // });
     const data = await response.data;
     console.log(data);
 
-    // console.log("selecthandler");
-    // const obj = {
-    //   Key: Key,
-    //   label: "question",
-    //   cik: "00333",
-    // };
-    // const response = await fetch(
-    //   `http://localhost:3000/tree/question/${key}`
-    //   // method: "GET",
-    //   // body: JSON.stringify(obj),
-    //   // headers: {
-    //   //   "content-type": "application/json",
-    //   // },
-    // );
-    // let data;
-    // if (response.ok) {
-    //   data = await response.json();
-    //   console.log(data);
-    // }
-    setform("");
-    // data={data.vertex._items[0]}
+    const val =
+      Object.keys(data.formProperties._items[0]).length !== 0
+        ? data.formProperties._items[0]
+        : data.vertex._items[0];
     let Form;
     if (key === "Organization") {
-      Form = <OrganizationDetails data={data.vertex._items[0]} />;
-    } else if (key === "GRI-2.1.a.2") {
-      Form = (
-        <Form1
-          data={data.formProperties._items[0]}
-          UpdateHandler={UpdateHandler}
-          qkey={key}
-        />
-      );
+      Form = <OrganizationDetails data={val} />;
+    } else if (key === "GRI-2.1.a.1") {
+      Form = <Form1 data={val} UpdateHandler={UpdateHandler} qkey={key} />;
     } else if (key === "2.1 b") {
-      Form = <Form2 data={data.vertex._items[0]} />;
+      Form = <Form2 data={val} />;
     } else if (key === "Location") {
-      Form = (
-        <Form3 data={data.vertex._items[0]} UpdateHandler={UpdateHandler} />
-      );
+      Form = <Form3 data={val} UpdateHandler={UpdateHandler} />;
     } else if (key === "Country") {
-      Form = (
-        <Form4 data={data.vertex._items[0]} UpdateHandler={UpdateHandler} />
-      );
+      Form = <Form4 data={val} UpdateHandler={UpdateHandler} />;
     }
     setform(Form);
   };
-  //arr.push(item[1].key);  //setExpanded((oldArray) => [...oldArray, item[1].key]);
 
   const render = (state) =>
     Object.entries(state).map((item) => (
@@ -154,8 +144,6 @@ const ViewReport = () => {
   };
 
   getkeys(state);
-
-  //console.log(arr, exparr);
 
   return (
     <Box container>
