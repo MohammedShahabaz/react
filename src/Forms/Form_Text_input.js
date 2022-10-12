@@ -1,10 +1,12 @@
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import React, { useState, useRef } from "react";
 
-const Form1 = (props) => {
+const Form_Text_input = (props) => {
   const data = props.data;
   const business_name = useRef();
   const legal_name = useRef();
+
+  console.log(data);
 
   const SubmitHandler = () => {
     const obj = {
@@ -17,10 +19,11 @@ const Form1 = (props) => {
 
   return (
     <Grid container justifyContent="center">
-      <Typography variant="h5" align="center" mb={3}>
-        Form 2.1 a
-      </Typography>
-      <Grid item container xs={12} justifyContent="center" mb={3}>
+      {/* <Typography variant="h6" align="center" mb={3}>
+       
+        {props.data[0]}
+      </Typography> */}
+      {/* <Grid item container xs={12} justifyContent="center" mb={3}>
         <Grid item xs={5}>
           <TextField
             id="outlined-basic"
@@ -32,34 +35,22 @@ const Form1 = (props) => {
             // size="small"
           />
         </Grid>
-      </Grid>
-      <Grid item container xs={12} justifyContent="center" mb={3}>
-        <Grid item xs={5}>
+      </Grid> */}
+      {/* <Grid item container xs={12} justifyContent="center" mb={3}>
+        <Grid item xs={7}>
           <TextField
             id="outlined-basic"
-            label="Legal Name of Company"
+            // label="Legal Name"
             variant="outlined"
             fullWidth
-            defaultValue={data.legal_name[0]}
-            inputRef={legal_name}
+            // defaultValue={data.legal_name[0]}
+            // inputRef={legal_name}
             // size="small"
           />
         </Grid>
-      </Grid>
-      <Grid item container xs={12} justifyContent="center" spacing={4}>
-        <Grid item xs={2}></Grid>
-        <Grid item xs={2}>
-          <Button
-            size="small"
-            variant="contained"
-            onClick={() => SubmitHandler()}
-          >
-            Update
-          </Button>
-        </Grid>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };
 
-export default Form1;
+export default Form_Text_input;

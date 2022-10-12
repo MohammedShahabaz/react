@@ -1,26 +1,12 @@
-import logo from "./logo.svg";
 import "./App.css";
 import React from "react";
-
-import { useState, useEffect } from "react";
-import PrimarySearchAppBar from "./UI/Navbar";
-
-import NewESGReport from "./Components/NewESGReport";
-import Home from "./Components/Home";
-
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useHistory,
-} from "react-router-dom";
-import ViewReport from "./Components/ViewReport";
-import Form1 from "./Forms/Form1";
+import PrimarySearchAppBar from "./pages/Components/Navbar";
+import NewESGReport from "./pages/Components/NewESGReport";
+import Home from "../src/pages/Home";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import ViewReport from "./pages/ViewReport";
 
 function App() {
-  const [state, setState] = useState("");
-  const history = useHistory();
-
   return (
     <div className="App">
       <header className="App-header">
