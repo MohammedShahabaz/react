@@ -9,17 +9,17 @@ const Form6 = (props) => {
         {props.data[0]}
       </Typography> */}
 
-      {/* <Grid item container xs={12} justifyContent="center" mb={3}>
-        <Grid item xs={6}>
+      <Grid item container xs={12} ml={3} mb={4}>
+        <Grid item xs={10} ml={3}>
           <TextField
             id="outlined-multiline-static"
-            label="Financial report statement"
+            label="Description"
             multiline
             fullWidth
-            rows={6}
+            rows={3}
           />
         </Grid>
-      </Grid> */}
+      </Grid>
     </Grid>
   );
 };

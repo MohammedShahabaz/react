@@ -26,23 +26,17 @@ const Form_Autocomplete = (props) => {
       {props.data[0]}
       </Typography> */}
 
-      {/* <Grid item container xs={12} justifyContent="center">
-        <Grid item xs={5}>
-          
-
-
-<Autocomplete
-      disablePortal
-      id="combo-box-demo"
-      options={top100Films}
-      sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Nature of Ownership" />}
-    />
-
-
-
+      <Grid item container xs={12} mt={3} ml={3} mb={3}>
+        <Grid item xs={10} ml={3}>
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={top100Films}
+            renderInput={(params) => <TextField {...params} label={props.qn} />}
+            fullWidth
+          />
         </Grid>
-      </Grid> */}
+      </Grid>
     </Grid>
   );
 };

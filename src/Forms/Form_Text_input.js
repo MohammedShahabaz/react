@@ -6,8 +6,6 @@ const Form_Text_input = (props) => {
   const business_name = useRef();
   const legal_name = useRef();
 
-  console.log(data);
-
   const SubmitHandler = () => {
     const obj = {
       business_name: business_name.current.value,
@@ -36,11 +34,11 @@ const Form_Text_input = (props) => {
           />
         </Grid>
       </Grid> */}
-      {/* <Grid item container xs={12} justifyContent="center" mb={3}>
-        <Grid item xs={7}>
+      <Grid item container xs={12} mt={3} ml={3} mb={3}>
+        <Grid item xs={10} ml={3}>
           <TextField
             id="outlined-basic"
-            // label="Legal Name"
+            label={props.qn}
             variant="outlined"
             fullWidth
             // defaultValue={data.legal_name[0]}
@@ -48,7 +46,7 @@ const Form_Text_input = (props) => {
             // size="small"
           />
         </Grid>
-      </Grid> */}
+      </Grid>
     </Grid>
   );
 };

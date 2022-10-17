@@ -6,6 +6,8 @@ import PropTypes from "prop-types";
 import Collapse from "@mui/material/Collapse";
 import { alpha, styled } from "@mui/material/styles";
 import { useSpring, animated } from "react-spring/web.cjs";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
 const Tree = (props) => {
   const renderTree = (nodes) =>
@@ -100,9 +102,9 @@ const Tree = (props) => {
     <TreeView
       aria-label="customized"
       defaultExpanded={["1"]}
-      defaultCollapseIcon={<MinusSquare />}
-      defaultExpandIcon={<PlusSquare />}
-      defaultEndIcon={<CloseSquare />}
+      defaultCollapseIcon={<ArrowDropDownIcon />}
+      defaultExpandIcon={<ArrowRightIcon />}
+      //defaultEndIcon={<CloseSquare />}
       selected={props.selected}
       //onNodeToggle={handleToggle}
       onNodeSelect={props.handleSelect}
